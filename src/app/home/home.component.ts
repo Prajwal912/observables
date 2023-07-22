@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit,OnDestroy {
 
   ngOnDestroy(): void {
     this.firstObsSubs.unsubscribe()
-  }
+  } 
 }
 
 
