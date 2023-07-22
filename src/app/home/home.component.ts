@@ -19,6 +19,10 @@ export class HomeComponent implements OnInit,OnDestroy {
         let count = 1
         setInterval(() => {
           observer.next(count);
+          if(count==3){
+            observer.complete();
+          }
+
           if(count> 4){
             observer.error(new Error ('count is exceeds to 5'))
           }
@@ -30,6 +34,9 @@ export class HomeComponent implements OnInit,OnDestroy {
       console.log(data)
     }, error => {
       console.log(error)
+    }, () => {
+      console.log("misson accomplished")
+
     }
     )
   }
