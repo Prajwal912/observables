@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription, interval } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -16,9 +17,9 @@ export class HomeComponent implements OnInit,OnDestroy {
     // this.firstObsSubs = interval(1000).subscribe((count) => console.log(count))
 
     const customObs = Observable.create(observer => {
-        let count = 1
+        let count = 0
         setInterval(() => {
-          observer.next(count);
+          observer.next(count);//next is used for handling the emmiting data
           if(count==3){
             observer.complete();
           }
@@ -30,8 +31,14 @@ export class HomeComponent implements OnInit,OnDestroy {
         },1000)
     })
 
-    this.firstObsSubs = customObs.subscribe(data => {
-      console.log('Round:' + (data + 1) )//simple transformation without operators
+
+
+    this.firstObsSubs =  customObs.pipe(filter((data:number) => {
+       return data > 0;
+    }) ,map((data:number) => {
+      return  'Round' + (data + 1)
+    })).subscribe(data => {
+      console.log (data)
     }, error => {
       console.log(error)
     }, () => {
