@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit,OnDestroy {
     })
 
     this.firstObsSubs = customObs.subscribe(data => {
-      console.log(data)
+      console.log('Round:' + (data + 1) )//simple transformation without operators
     }, error => {
       console.log(error)
     }, () => {
